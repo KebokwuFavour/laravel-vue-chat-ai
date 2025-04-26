@@ -59,7 +59,7 @@ onMounted(() => {
           <SidebarMenu>
             <SidebarMenuItem v-for="(item, index) in items" :key="index">
               <SidebarMenuButton asChild>
-                <NavLink href="/dashboard" @click="activeConversation(item.id)">
+                <NavLink href="#" @click.prevent="activeConversation(item.id)">
                   <!-- <component :is="item.icon" /> -->
                   <span>{{ item.title }}</span>
                 </NavLink>

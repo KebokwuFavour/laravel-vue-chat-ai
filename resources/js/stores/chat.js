@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -17,15 +18,22 @@ export const useChatStore = defineStore(
     // This function will be called when the store is initialized
     async function getConversationChats() {
       try {
-        const conversationId = conversation_id.value;
+
+        // save the current assigned conversation in a variable
+        const cId = conversation_id.value;
 
         const response = await axios.get("/api/chat/messages", {
-          conversation_id: conversationId,
+          params: { conversation_id: cId },
         });
 
-        // // log the response to see the structure
-        // console.log(response.data);
-        // console.log(response.data.messages);
+        // clear the messages array and set the conversation_id to an empty string
+       messages.value = [];
+       conversation_id.value = "";
+       newMessage.value = "";
+       loading.value = false;
+
+        // Show initial message
+       messages.value.push({ from: "AI", text: "Hello! Ask me anything." });
 
         // loop through the messages and push them to the messages array
         response.data.messages.forEach((message) => {
@@ -40,8 +48,6 @@ export const useChatStore = defineStore(
           });
         });
 
-        // // Scroll to bottom after DOM updates
-        // scrollToBottom();
       } catch (error) {
         console.error("Error fetching user chat history :", error);
       }

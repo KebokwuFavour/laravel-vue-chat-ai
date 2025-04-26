@@ -31,6 +31,7 @@ Route::get('/chat/conversations', function (Request $request) {
 
 })->middleware('auth:sanctum');
 
+
 // Route to chat with AI
 Route::post('/chat', function (Request $request) {
 
@@ -141,26 +142,6 @@ Route::get('/chat/messages', function (Request $request) {
 
     // get the user id from the request
     $conversationId = $request->input('conversation_id');
-
-
-    // get the chat messages for the authenticated user
-    $chatMessages = ChatMessage::where('user_id', $userId)->where('conversation_id', $conversationId)->get();
-
-    // return the chat messages to the frontend in json format
-    return response()->json([
-        'messages' => $chatMessages,
-    ]);
-
-})->middleware('auth:sanctum');
-
-// Route to get the chat messages for the authenticated user
-Route::get('/chat/{id}', function (Request $request) {
-
-    // get the authenticated user id
-    $userId = Auth::id();
-
-    // get the user id from the request
-    $conversationId = $request->route('id');
 
 
     // get the chat messages for the authenticated user
