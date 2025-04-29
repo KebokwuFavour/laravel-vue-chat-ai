@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-vue-next";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/Components/ui/sidebar";
 import NavLink from "@/Components/NavLink.vue";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import { useChatStore } from "@/stores/chat";
 import { useConversationStore } from "@/stores/conversation";
 
@@ -41,29 +39,57 @@ const activeConversation = (convId) => {
   chatStore.getConversationChats();
 };
 
+const handleRightClick = (e) => {
+  alert("Custom context menu action triggered!");
+};
+
+let holdTimer = null;
+
+const startHold = () => {
+  holdTimer = setTimeout(() => {
+    // Do something on hold (after 800ms)
+    console.log("Held for long enough!");
+    alert("Held for long enough!");
+  }, 800); // hold duration in ms
+};
+
+const cancelHold = () => {
+  clearTimeout(holdTimer);
+};
 // when the component is mounted (browser has fininsh loading), get available conversation
 onMounted(() => {
   // Fetch the conversations when the component is mounted
   conversationStore.getConversations();
-
-  // Check if the user has conversations
-  if (conversationStore.conversations.length === 0) {
-    return;
-  }
 });
 </script>
 
 <template>
   <Sidebar>
     <SidebarContent>
-      <SidebarGroup class="px-6">
+      <SidebarGroup>
         <!-- <SidebarGroupLabel class="fs-1">Application</SidebarGroupLabel> -->
-        <h1 class="mx-auto pt-3 h1" style="font-weight: bolder">Conversations</h1>
+        <h1 class="py-4 px-0 text-center text-xl" style="font-weight: bolder">
+          Conversations
+        </h1>
         <SidebarGroupContent>
-          <SidebarMenu>
+          <SidebarMenu class="px-2">
             <SidebarMenuItem v-for="(item, index) in items" :key="index">
               <SidebarMenuButton asChild>
-                <NavLink href="#" @click.prevent="activeConversation(item.id)">
+                <NavLink
+                  href="#"
+                  :class="
+                    chatStore.conversation_id == item.id
+                      ? 'text-gray-950 bg-gray-300 fw-bolder'
+                      : ''
+                  "
+                  @click.prevent="activeConversation(item.id)"
+                  @contextmenu.prevent="handleRightClick"
+                  @mousedown.prevent="startHold"
+                  @mouseup.prevent="cancelHold"
+                  @mouseleave="cancelHold"
+                  @touchstart="startHold"
+                  @touchend="cancelHold"
+                >
                   <!-- <component :is="item.icon" /> -->
                   <span>{{ item.title }}</span>
                 </NavLink>

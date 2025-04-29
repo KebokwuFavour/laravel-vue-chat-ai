@@ -13,6 +13,11 @@ export const useConversationStore = defineStore(
       try {
         const response = await axios.get("/api/chat/conversations");
         
+        // Check if the user has any conversations
+        if (response.data.conversations.length === 0) {
+          return;
+        }
+        
         // set the conversations array to the response data received from the API
         conversations.value = response.data.conversations;
 

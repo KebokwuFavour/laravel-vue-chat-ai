@@ -71,10 +71,14 @@ const sendMessage = async () => {
 
     // Replace "Thinking..." with actual AI response
     chatStore.messages[chatStore.messages.length - 1].text = response.data.reply;
-    chatStore.conversation_id = response.data.conversation_id;
 
-    // get conversations again
-    conversationStore.getConversations();
+    // update conversations if is a new chat
+    if (response.data.conversation_id != conversationId) {
+      // get conversations again
+      conversationStore.getConversations();
+    }
+
+    chatStore.conversation_id = response.data.conversation_id;
 
     // Scroll to bottom
     scrollToBottom();
@@ -101,39 +105,6 @@ const newChat = () => {
   // Scroll to bottom
   scrollToBottom();
 };
-
-// // when the component is mounted (browser has fininsh loading), fetch the chat history
-// onMounted(async () => {
-//   try {
-//     const conversationId = conversation.value;
-
-//     const response = await axios.get("/api/chat/messages", {
-//       conversation_id: conversationId,
-//     });
-
-//     // // log the response to see the structure
-//     // console.log(response.data);
-//     // console.log(response.data.messages);
-
-//     // loop through the messages and push them to the messages array
-//     response.data.messages.forEach((message) => {
-//       conversation.value = message.conversation_id;
-//       messages.value.push({
-//         from: "User",
-//         text: message.user_prompt,
-//       });
-//       messages.value.push({
-//         from: "AI",
-//         text: message.ai_reply,
-//       });
-//     });
-
-//     // Scroll to bottom after DOM updates
-//     scrollToBottom();
-//   } catch (error) {
-//     console.error("Error fetching user chat history :", error);
-//   }
-// });
 </script>
 
 <template>
@@ -175,17 +146,11 @@ const newChat = () => {
     <form @submit.prevent="sendMessage">
       <textarea
         v-model="chatStore.newMessage"
-        type="text"
         class="w-full border p-2 rounded mb-2"
         placeholder="Type your message..."
         style="max-height: fit-content; height: 60px"
-        @keydown.enter="sendMessage"
+        @keydown.enter.exact.prevent="sendMessage"
       ></textarea>
-      <!-- <input
-        type="hidden"
-        v-model="chatStore.conversation_id"
-        :value="chatStore.conversation_id"
-      /> -->
       <button
         class="bg-blue-600 text-white px-4 py-2 rounded"
         :disabled="chatStore.loading"

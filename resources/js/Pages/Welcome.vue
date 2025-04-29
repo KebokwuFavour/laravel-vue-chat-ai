@@ -92,7 +92,7 @@ defineProps({
 
     <!-- Footer -->
     <footer class="text-center py-6 text-sm text-gray-500 bg-gray-50">
-      &copy; 2025 ChatAI. All rights reserved.
+      &copy; {{ Date }} ChatAI. All rights reserved.
     </footer>
   </div>
 </template>
