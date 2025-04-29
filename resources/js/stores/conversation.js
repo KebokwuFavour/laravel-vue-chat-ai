@@ -13,13 +13,7 @@ export const useConversationStore = defineStore(
       try {
         const response = await axios.get("/api/chat/conversations");
         
-        // loop through the conversations and push them to the conversations array
-        // response.data.conversations.forEach((chatTitle) => {
-        //   // id.value = conversation.id;
-        //   // title.value = conversation.title;
-        //   conversations.value.push({ id: chatTitle.id, title: chatTitle.title });
-        // });
-
+        // set the conversations array to the response data received from the API
         conversations.value = response.data.conversations;
 
       } catch (error) {

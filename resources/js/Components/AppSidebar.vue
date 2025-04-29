@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/Components/ui/sidebar";
 import NavLink from "@/Components/NavLink.vue";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useChatStore } from "@/stores/chat";
 import { useConversationStore } from "@/stores/conversation";
 
@@ -22,13 +22,22 @@ const conversationStore = useConversationStore();
 const chatStore = useChatStore();
 
 // Menu items.
-const items = ref([]);
+// Items are generated dynamically from the conversation store.
+// It is computed to reactively update when the conversations change.
+const items = computed(() =>
+  conversationStore.conversations.map((conversation) => ({
+    title: conversation.title,
+    url: "/chat/" + conversation.id,
+    id: conversation.id,
+  }))
+);
 
 // Function to set the active conversation
 const activeConversation = (convId) => {
   // set the conversation id to the chat store
   chatStore.conversation_id = convId;
 
+  // Fetch the current conversation chats
   chatStore.getConversationChats();
 };
 
@@ -37,15 +46,10 @@ onMounted(() => {
   // Fetch the conversations when the component is mounted
   conversationStore.getConversations();
 
-  // loop through the conversations and push them to the items array
-  conversationStore.conversations.forEach((conversation) => {
-    items.value.push({
-      title: conversation.title,
-      url: "/chat/" + conversation.id,
-      id: conversation.id,
-      // icon: Home,
-    });
-  });
+  // Check if the user has conversations
+  if (conversationStore.conversations.length === 0) {
+    return;
+  }
 });
 </script>
 

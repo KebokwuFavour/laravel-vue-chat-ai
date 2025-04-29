@@ -10,13 +10,7 @@ const chatStore = useChatStore();
 // initializing the conversation store
 const conversationStore = useConversationStore();
 
-// const messages = ref([{ from: "AI", text: "Hello! Ask me anything." }]);
-// const newMessage = ref("");
-// const loading = ref(false);
 const chatBox = ref(null);
-
-// // track conversations (we can call it tittles)
-// const conversation = ref("");
 
 // function to scroll to the bottom of the chat box
 const scrollToBottom = () => {
@@ -184,6 +178,8 @@ const newChat = () => {
         type="text"
         class="w-full border p-2 rounded mb-2"
         placeholder="Type your message..."
+        style="max-height: fit-content; height: 60px"
+        @keydown.enter="sendMessage"
       ></textarea>
       <!-- <input
         type="hidden"

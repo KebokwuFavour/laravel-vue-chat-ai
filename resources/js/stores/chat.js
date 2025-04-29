@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 export const useChatStore = defineStore(
   'chat', () => {
-      // Define a reactive variable to hold the chats
+    // Define a reactive variable to hold the chats
     const messages = ref([{ from: "AI", text: "Hello! Ask me anything." }]);
     const newMessage = ref("");
     const loading = ref(false);
