@@ -1,14 +1,17 @@
+# Use official PHP with Apache image
 FROM php:8.2-apache
 
-# Install PHP extensions
+# Install dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
   git \
   curl \
   unzip \
+  zip \
   libpq-dev \
   libzip-dev \
-  zip \
-  && docker-php-ext-install pdo pdo_pgsql
+  nodejs \
+  npm \
+  && docker-php-ext-install pdo pdo_pgsql zip
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
@@ -16,18 +19,23 @@ RUN a2enmod rewrite
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy files and install dependencies
-COPY . .
-
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy project files
+COPY . .
+
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions
+# Install Node dependencies and build frontend
+RUN npm install && npm run build
+
+# Set correct permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Expose web port
+# Expose Apache port
 EXPOSE 80
 
-# Start Apache
-CMD ["apache2-foreground"]
+# Run migrations and start Apache
+CMD php artisan migrate --force && apache2-foreground
