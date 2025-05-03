@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: laravel-vue-chat-ai
+    env: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: APP_KEY
+        value: base64:I2+jQ/7WPoUgL/IamB9UbadlhxX5gOCSYUq364E+Od4=
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://laravel-vue-chat-ai.onrender.com
+
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        value: dpg-d0ams21r0fns73cmrm7g-a
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        value: laravel_vue_chat_ai
+      - key: DB_USERNAME
+        value: laravel_vue_chat_ai
+      - key: DB_PASSWORD
+        value: vTDAELDglT3716CaJOJlUanqqK1z2Jvx
+
+      - key: CACHE_DRIVER
+        value: file
+      - key: SESSION_DRIVER
+        value: file
