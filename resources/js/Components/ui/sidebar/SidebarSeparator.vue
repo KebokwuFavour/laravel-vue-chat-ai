@@ -1,6 +1,6 @@
 <script setup>
-import { cn } from '@/lib/utils';
-import { Separator } from '@/components/ui/separator';
+import { cn } from "@/lib/utils";
+import { Separator } from "@/Components/ui/separator";
 
 const props = defineProps({
   class: { type: null, required: false },
