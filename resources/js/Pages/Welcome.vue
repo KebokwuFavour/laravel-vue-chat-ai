@@ -9,6 +9,8 @@ defineProps({
     type: Boolean,
   },
 });
+
+const currentYear = new Date().getFullYear(); // Get the current year
 </script>
 
 <template>
@@ -92,7 +94,7 @@ defineProps({
 
     <!-- Footer -->
     <footer class="text-center py-6 text-sm text-gray-500 bg-gray-50">
-      &copy; {{ Date }} ChatAI. All rights reserved.
+      &copy; {{ currentYear }} ChatAI. All rights reserved.
     </footer>
   </div>
 </template>

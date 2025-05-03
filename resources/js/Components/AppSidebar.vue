@@ -58,6 +58,9 @@ const cancelHold = () => {
 };
 // when the component is mounted (browser has fininsh loading), get available conversation
 onMounted(() => {
+  // emppty conversations array in the conversation store
+  conversationStore.conversations = [];
+
   // Fetch the conversations when the component is mounted
   conversationStore.getConversations();
 });
