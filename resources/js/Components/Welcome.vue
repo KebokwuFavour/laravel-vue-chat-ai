@@ -105,6 +105,18 @@ const newChat = () => {
   // Scroll to bottom
   scrollToBottom();
 };
+
+// when the component is mounted (browser has finished loading)
+onMounted(() => {
+  // empty messages array in the chat store
+  chatStore.messages = [];
+
+  // Show initial message
+  chatStore.messages.push({ from: "AI", text: "Hello! Ask me anything." });
+
+  // Scroll to bottom
+  scrollToBottom();
+});
 </script>
 
 <template>
