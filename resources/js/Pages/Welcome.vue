@@ -19,13 +19,7 @@ const currentYear = new Date().getFullYear(); // Get the current year
     <!-- Header Section -->
     <header class="flex items-center justify-between px-6 py-4 bg-white shadow-md">
       <div class="flex items-center space-x-2">
-        <img
-          src="/storage/images/favicon.png"
-          alt=""
-          class="rounded-xl"
-          width="40"
-          height="40"
-        />
+        <img src="/images/favicon.png" alt="" class="rounded-xl" width="40" height="40" />
         <h1 class="text-2xl font-bold text-indigo-600">ChatAI</h1>
       </div>
       <div v-if="canLogin" class="space-x-4">

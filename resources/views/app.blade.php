@@ -7,8 +7,8 @@
         <title inertia>{{ config('app.name', 'AI Chat') }}</title>
 
         <!-- favicon link -->
-        <link rel="icon" type="image/png" href="{{ asset('storage/images/favicon.png') }}" />
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('storage/images/favicon.png') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.png') }}" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

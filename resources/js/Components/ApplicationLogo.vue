@@ -1,5 +1,5 @@
 <script setup>
-const imageUrl = "/storage/images/favicon.png";
+const imageUrl = "/images/favicon.png";
 </script>
 
 <template>
