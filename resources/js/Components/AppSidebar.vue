@@ -56,6 +56,7 @@ const startHold = () => {
 const cancelHold = () => {
   clearTimeout(holdTimer);
 };
+
 // when the component is mounted (browser has fininsh loading), get available conversation
 onMounted(() => {
   // emppty conversations array in the conversation store

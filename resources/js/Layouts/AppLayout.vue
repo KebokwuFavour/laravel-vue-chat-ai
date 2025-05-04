@@ -7,7 +7,6 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { SidebarProvider, SidebarTrigger } from "@/Components/ui/sidebar";
 
 defineProps({
   title: String,
@@ -44,10 +43,6 @@ const logout = () => {
         <div class="max-w-7xl mx-auto pe-4 sm:px-6 md:ps-0 lg:pe-8">
           <div class="flex justify-between h-16">
             <div class="flex">
-              <!-- trigger/toggler for the sidebar -->
-              <main class="py-4">
-                <SidebarTrigger />
-              </main>
               <!-- Logo -->
               <!-- <div class="shrink-0 flex items-center">
                 <Link :href="route('dashboard')">

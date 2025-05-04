@@ -110,6 +110,9 @@ const newChat = () => {
 onMounted(() => {
   // empty messages array in the chat store
   chatStore.messages = [];
+  chatStore.conversation_id = "";
+  chatStore.newMessage = "";
+  // chatStore.loading = false;
 
   // Show initial message
   chatStore.messages.push({ from: "AI", text: "Hello! Ask me anything." });

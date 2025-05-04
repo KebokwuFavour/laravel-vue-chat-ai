@@ -18,7 +18,16 @@ const currentYear = new Date().getFullYear(); // Get the current year
   <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
     <!-- Header Section -->
     <header class="flex items-center justify-between px-6 py-4 bg-white shadow-md">
-      <h1 class="text-2xl font-bold text-indigo-600">ChatAI</h1>
+      <div class="flex items-center space-x-2">
+        <img
+          src="/storage/images/favicon.png"
+          alt=""
+          class="rounded-xl"
+          width="40"
+          height="40"
+        />
+        <h1 class="text-2xl font-bold text-indigo-600">ChatAI</h1>
+      </div>
       <div v-if="canLogin" class="space-x-4">
         <Link
           v-if="$page.props.auth.user"
