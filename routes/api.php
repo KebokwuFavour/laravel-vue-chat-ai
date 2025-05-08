@@ -20,6 +20,11 @@ Route::get('/chat/conversations', function (Request $request) {
     // get the authenticated user id
     $userId = Auth::id();
 
+    // // if the user is not authenticated
+    // if (!$userId) {
+    //     return;
+    // }
+
     // get the chat conversations for the authenticated user
     $conversations = Conversation::where('user_id', $userId)->get();
 

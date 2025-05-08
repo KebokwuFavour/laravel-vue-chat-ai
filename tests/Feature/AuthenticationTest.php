@@ -30,3 +30,14 @@ test('users cannot authenticate with invalid password', function () {
 
     $this->assertGuest();
 });
+
+test('users cannot authenticate with empty email and password', function () {
+    // $user = User::factory()->create();
+
+    $this->post('/login', [
+        'email' => '',
+        'password' => '',
+    ]);
+
+    $this->assertGuest();
+});
